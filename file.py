@@ -73,6 +73,7 @@ class FFNN:
 
 	def get_output(self, input):
 		self.feature_neurons = []
+		self.hidden_neurons = []
 		for item in input:
 			self.feature_neurons.append(item)
 
@@ -81,21 +82,21 @@ class FFNN:
 			for j in range(self.nb_nodes):
 				temp_hidden_layer.append(self.get_sigmoid_value(i, j))
 			self.hidden_neurons.append(temp_hidden_layer)
-		output = self.get_sigmoid_value(output=True)	
+		output = self.get_sigmoid_value(output=True)
 		return output	
 
 	def fit(self, x_train, y_train, batch_size, momentum=0.001, learning_rate=0.5, epoch=5):
 		self.init_weights()
 		for i in range(epoch):
-			#masuk ke epoch
+			print("-- epoch ", i, " --")
 			for	j in range(0, len(y_train), batch_size):
 				#masuk ke batch
+				print("batch ", j)
 				x_mini = x_train[j:j+batch_size]
 				y_mini = y_train[j:j+batch_size]
 				x_output = []
 				for x in x_mini:
 					x_output.append(self.get_output(x))
-				
 				delta_x = []
 				# for x, y in x_mini, y_mini:
 					# itung selisih prediksi dgn ekspektasi
